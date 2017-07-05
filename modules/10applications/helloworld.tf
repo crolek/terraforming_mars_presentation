@@ -91,3 +91,11 @@ resource "aws_instance" "hello_world" {
     Name = "hello_world_${var.env}"
   }
 }
+
+resource "aws_route53_record" "hello_world" {
+  zone_id   = "Z2F92KUB7IINUX"  # clinker.io
+  name      = "hello_world"
+  type      = "A"
+  ttl       = "300"
+  records   = ["${aws_instance.hello_world.public_ip}"]
+}
