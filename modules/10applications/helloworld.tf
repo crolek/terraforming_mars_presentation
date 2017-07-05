@@ -75,7 +75,7 @@ resource "aws_instance" "hello_world" {
   availability_zone               = "${var.availability_zone}"
   instance_type                   = "t2.micro"
   subnet_id                       = "${var.application_subnet_0_id}"
-  vpc_security_group_ids          = ["${aws_security_group.base_traffic_security_group.id}"]
+  vpc_security_group_ids          = ["${aws_security_group.base_traffic_security_group.id}", "${aws_security_group.hello_world_security_group.id}"]
   source_dest_check               = false
   key_name                        = "${var.key_name}"
   user_data                       = "${data.template_file.helloworld_bootstrap.rendered}"
