@@ -72,7 +72,7 @@ EOF
 
 resource "aws_instance" "hello_world" {
   ami                             = "${var.ami}"
-  availability_zone               = "${var.availability_zone}"
+  availability_zone               = "${var.availability_zone_0}"
   instance_type                   = "t2.micro"
   subnet_id                       = "${var.application_subnet_0_id}"
   vpc_security_group_ids          = ["${aws_security_group.base_traffic_security_group.id}", "${aws_security_group.hello_world_security_group.id}"]

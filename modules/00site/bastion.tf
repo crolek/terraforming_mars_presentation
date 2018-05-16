@@ -1,6 +1,5 @@
 resource "aws_instance" "bastion" {
   ami                             = "${var.ami}"
-  availability_zone               = "${var.availability_zone}"
   instance_type                   = "t2.micro"
   subnet_id                       = "${aws_subnet.dmz_subnet_0.id}"
   vpc_security_group_ids          = ["${aws_security_group.bastion_security_group.id}"]
@@ -14,15 +13,6 @@ resource "aws_instance" "bastion" {
   }
 }
 
-resource "aws_subnet" "dmz_subnet_0" {
-  vpc_id            = "${aws_vpc.personal_vpc.id}"
-  availability_zone = "${var.availability_zone}"
-  cidr_block        = "10.14.80.0/24"
-
-  tags {
-    Name = "dmz_subnet_0_${var.env}"
-  }
-}
 
 resource "aws_route_table_association" "bastion" {
   subnet_id = "${aws_subnet.dmz_subnet_0.id}"

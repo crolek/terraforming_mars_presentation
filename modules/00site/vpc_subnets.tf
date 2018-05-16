@@ -23,7 +23,7 @@ resource "aws_route" "internet_route" {
 
 resource "aws_subnet" "application_subnet_0" {
   vpc_id            = "${aws_vpc.personal_vpc.id}"
-  availability_zone = "${var.availability_zone}"
+  availability_zone = "${var.availability_zone_0}"
   cidr_block        = "10.14.90.0/24"
 
   tags {
@@ -31,15 +31,38 @@ resource "aws_subnet" "application_subnet_0" {
   }
 }
 
+
+resource "aws_subnet" "application_subnet_1" {
+  vpc_id            = "${aws_vpc.personal_vpc.id}"
+  availability_zone = "${var.availability_zone_1}"
+  cidr_block        = "10.14.91.0/24"
+
+  tags {
+    Name = "application_subnet_1_${var.env}"
+  }
+}
+
+resource "aws_subnet" "dmz_subnet_0" {
+  vpc_id            = "${aws_vpc.personal_vpc.id}"
+  availability_zone = "${var.availability_zone_0}"
+  cidr_block        = "10.14.200.0/24"
+
+  tags {
+    Name = "dmz_subnet_0_${var.env}"
+  }
+}
+
+resource "aws_subnet" "dmz_subnet_1" {
+  vpc_id            = "${aws_vpc.personal_vpc.id}"
+  availability_zone = "${var.availability_zone_1}"
+  cidr_block        = "10.14.201.0/24"
+
+  tags {
+    Name = "dmz_subnet_1_${var.env}"
+  }
+}
+
 resource "aws_route_table_association" "application_subnet_0" {
   subnet_id         = "${aws_subnet.application_subnet_0.id}"
   route_table_id    = "${aws_route_table.public_route_table.id}"
-}
-
-output "vpc_id" {
-  value = "${aws_vpc.personal_vpc.id}"
-}
-
-output "application_subnet_0_id" {
-  value = "${aws_subnet.application_subnet_0.id}"
 }
